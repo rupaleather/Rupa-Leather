@@ -1,0 +1,89 @@
+.section {
+  padding: var(--space-32) 0;
+  background: #ffffff; /* White background as requested */
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-left: 40px;
+}
+
+.label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  color: #1a1a1a; /* Dark text for white background */
+}
+
+.desc {
+  font-size: var(--text-lg);
+  line-height: 1.8;
+  color: #4a4a4a;
+  max-width: 500px;
+}
+
+.visualCol {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.imageWrapper {
+  max-width: 450px;
+  width: 100%;
+  border-radius: 100px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.secondaryImageWrapper {
+  position: absolute;
+  bottom: -40px;
+  left: -100px; /* shift left so it sticks out nicely since it's bigger */
+  width: 420px; /* Make it prominently large as requested */
+  border-radius: 100px;
+  overflow: hidden;
+  z-index: 2;
+  background: transparent;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .textContent {
+    align-items: center;
+  }
+  
+  .desc {
+    margin: 0 auto;
+  }
+}

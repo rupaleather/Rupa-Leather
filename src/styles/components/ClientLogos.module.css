@@ -1,0 +1,75 @@
+.clientSection {
+  background: #fbfbfb;
+  padding: 40px 0 20px;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.marqueeContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  /* Add fade gradient on left and right edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  width: max-content;
+  padding-left: 80px; /* Offset for seamless looping */
+  animation: scrollLogos 25s linear infinite;
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  min-width: 120px;
+}
+
+.clientImg {
+  max-width: 150px;
+  max-height: 50px;
+  object-fit: contain;
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.clientImg:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+@keyframes scrollLogos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Scrolls exactly half the cloned array */
+}
+
+@media (max-width: 768px) {
+  .marqueeTrack {
+    gap: 50px;
+    padding-left: 50px;
+    animation: scrollLogos 20s linear infinite;
+  }
+  .clientImg {
+    max-width: 100px;
+    max-height: 40px;
+  }
+}

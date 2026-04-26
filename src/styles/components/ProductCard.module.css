@@ -1,0 +1,120 @@
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--color-bg-card);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-glow);
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #2a2318, #1a1510);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, #2a2318 0%, #1a1510 50%, #2a2318 100%);
+}
+
+.imageWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.card:hover .imageWrap img,
+.card:hover .imagePlaceholder {
+  transform: scale(1.06);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.badges {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: 2;
+}
+
+.quickView {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  transition: all var(--duration-normal) var(--ease-out);
+  z-index: 2;
+}
+
+.card:hover .quickView {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.info {
+  padding: var(--space-4) var(--space-5);
+}
+
+.category {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-snug);
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.salePrice {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.originalPrice {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.stars { color: #fbbf24; letter-spacing: 2px; }

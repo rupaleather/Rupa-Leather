@@ -1,0 +1,133 @@
+/* ============================================
+   DESIGN TOKENS — KULIT NUSANTARA
+   Single source of truth for all design values
+   ============================================ */
+
+:root {
+  /* ── Color Palette ── */
+  --color-primary: #c8a97e;
+  --color-primary-light: #d4bc9a;
+  --color-primary-dark: #a88b5e;
+  --color-primary-rgb: 200, 169, 126;
+
+  --color-bg-deep: #F0E7DA;
+  --color-bg-primary: #1a1a1a;
+  --color-bg-secondary: #242424;
+  --color-bg-elevated: #2a2a2a;
+  --color-bg-card: rgba(42, 42, 42, 0.6);
+  --color-bg-glass: rgba(255, 255, 255, 0.04);
+  --color-bg-glass-hover: rgba(255, 255, 255, 0.08);
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-muted: #78716c;
+  --color-text-accent: var(--color-primary);
+
+  --color-border: rgba(200, 169, 126, 0.15);
+  --color-border-hover: rgba(200, 169, 126, 0.35);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+
+  --color-success: #4ade80;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-shadow: rgba(0, 0, 0, 0.4);
+
+  /* ── Typography ── */
+  --font-heading: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+  --text-6xl: 4.5rem;
+  --text-hero: clamp(2.2rem, 5.5vw, 4.5rem);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.2em;
+
+  /* ── Spacing ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+
+  /* ── Layout ── */
+  --max-width: 1400px;
+  --max-width-narrow: 900px;
+  --max-width-wide: 1600px;
+  --container-padding: var(--space-6);
+  --navbar-height: 80px;
+  --footer-height: auto;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 3px var(--color-shadow);
+  --shadow-md: 0 4px 12px var(--color-shadow);
+  --shadow-lg: 0 8px 30px var(--color-shadow);
+  --shadow-xl: 0 12px 50px var(--color-shadow);
+  --shadow-glow: 0 0 40px rgba(var(--color-primary-rgb), 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(var(--color-primary-rgb), 0.25);
+
+  /* ── Transitions ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  /* ── Z-Index Scale ── */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-navbar: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+  --z-max: 999;
+
+  /* ── Glassmorphism ── */
+  --glass-blur: blur(20px);
+  --glass-bg: rgba(240, 231, 218, 0.65);
+  --glass-border: 1px solid rgba(200, 169, 126, 0.2);
+}
+
+/* ── Responsive Breakpoints (via media queries, used in components) ── */
+/* sm: 640px | md: 768px | lg: 1024px | xl: 1280px | 2xl: 1536px */
