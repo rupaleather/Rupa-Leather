@@ -1,0 +1,158 @@
+.container {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  min-height: calc(100vh - 64px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.helpIcon {
+  color: #f97316;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.loveIcon {
+  color: #64748b;
+  font-size: 1.25rem;
+}
+
+.tabsWrapper {
+  display: flex;
+  gap: 4rem;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 2rem;
+}
+
+.tabBtn {
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.tabBtn:hover {
+  color: #f97316;
+}
+
+.tabActive {
+  color: #f97316;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #f97316;
+  border-radius: 4px 4px 0 0;
+}
+
+.subscriptionCard {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border: 1px solid #f1f5f9;
+  border-left: 4px solid #f97316; /* Orange stripe */
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.packageInfo {
+  padding: 1.5rem;
+  background: #fafafa;
+  border-right: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.outletInfo {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.8125rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.packageName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f0fdf4;
+  color: #166534;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+}
+
+.outletCount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.detailLink {
+  color: #f97316;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 1rem;
+  transition: opacity 0.2s;
+}
+
+.detailLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.placeholderContent {
+  padding: 3rem;
+  text-align: center;
+  color: #94a3b8;
+  border: 1px dashed #e2e8f0;
+  border-radius: 12px;
+}

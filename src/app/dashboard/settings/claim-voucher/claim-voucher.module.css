@@ -1,0 +1,169 @@
+.container {
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.claimCard, .historyCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.pageTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.loveIcon {
+  color: #64748b;
+  font-size: 1.125rem;
+}
+
+.divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 0 -1.5rem 1.5rem;
+}
+
+.inputArea {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  flex: 1;
+  max-width: 400px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: #475569;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #f97316;
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.checkBtn {
+  padding: 0.75rem 2rem;
+  background-color: #f97316;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.checkBtn:hover {
+  background-color: #ea580c;
+}
+
+.tableWrapper {
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.emptyState {
+  padding: 5rem 0;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.emptyContent h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.emptyContent p {
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.folderIconWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.magnifier {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f97316;
+  border-radius: 50%;
+  bottom: -8px;
+  right: -8px;
+  background: white;
+}
+
+.magnifier::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 3px;
+  background: #f97316;
+  bottom: -3px;
+  right: -6px;
+  transform: rotate(45deg);
+}

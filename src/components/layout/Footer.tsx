@@ -57,6 +57,8 @@ export default function Footer() {
     setHasClosed(true);
   };
 
+  if (pathname.startsWith('/dashboard') || pathname === '/login' || pathname === '/register') return null;
+
   return (
     <>
       <footer className={styles.footer} id="main-footer" role="contentinfo">

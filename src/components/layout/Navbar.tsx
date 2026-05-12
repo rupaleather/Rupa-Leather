@@ -4,6 +4,7 @@
    ============================================ */
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
@@ -12,8 +13,8 @@ import styles from '@/styles/components/Navbar.module.css';
 
 const NAV_ITEMS = [
   { label: 'Profil', href: '/about' },
-  { 
-    label: 'Produk', 
+  {
+    label: 'Produk',
     href: '/products',
     dropdown: [
       { label: 'Tas', href: '/categories/tas' },
@@ -32,9 +33,9 @@ const NAV_ITEMS = [
       { label: 'Produk Terbaru', href: '/products' }
     ]
   },
-  { 
-    label: 'Promo', 
-    href: '#', 
+  {
+    label: 'Promo',
+    href: '#',
     dropdown: [
       { label: 'Daftar Member', href: '/register' },
       { label: 'Diskon Member', href: '/promo/member' },
@@ -46,6 +47,7 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { totalItems, toggleCart } = useCart();
@@ -61,18 +63,34 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
+  if (pathname.startsWith('/dashboard') || pathname === '/login' || pathname === '/register') return null;
+
   return (
     <>
-      <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`} id="main-navbar" role="navigation" aria-label="Main navigation">
+      <nav 
+        className={`${styles.navbar} ${
+          scrolled 
+            ? "shadow-lg !py-2" 
+            : "bg-transparent !py-4"
+        } fixed top-0 w-full z-[9999] transition-all duration-500 ease-in-out`} 
+        style={{
+          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+        }}
+        id="main-navbar" 
+        role="navigation" 
+        aria-label="Main navigation"
+      >
         <div className={styles.navInner}>
           <Link href="/" className={styles.logo} aria-label="Rupa Leather Home">
-            <Image 
-              src="/images/logo/logo.png" 
-              alt="Rupa Leather" 
-              width={180} 
-              height={45} 
+            <Image
+              src="/images/logo/logo.png"
+              alt="Rupa Leather"
+              width={180}
+              height={45}
               className={styles.logoImg}
-              priority 
+              priority
             />
             <span className={styles.logoText}>Rupa Leather</span>
           </Link>
@@ -90,9 +108,9 @@ export default function Navbar() {
                         {item.dropdown.map((subItem, subIdx) => {
                           const isFooter = item.label === 'Produk' && subIdx >= item.dropdown.length - 2;
                           return (
-                            <Link 
-                              key={subItem.label} 
-                              href={subItem.href} 
+                            <Link
+                              key={subItem.label}
+                              href={subItem.href}
                               className={`${styles.dropdownItem} ${isFooter ? styles.dropdownFooter : ''}`}
                             >
                               {subItem.label}

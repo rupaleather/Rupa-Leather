@@ -1,6 +1,6 @@
 /* ============================================
-   SECURITY MIDDLEWARE — KULIT NUSANTARA
-   Applied to all routes for maximum security
+   SECURITY MIDDLEWARE — RUPA LEATHER
+   Applied to UI routes for maximum security
    ============================================ */
 
 import { NextResponse } from 'next/server';
@@ -10,8 +10,19 @@ import { getCSPHeader } from '@/lib/security';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
+  const isApiRoute = request.nextUrl.pathname.startsWith('/api');
+  const isDev = process.env.NODE_ENV === 'development';
 
-  // Apply security headers
+  // 1. Jika ini request ke /api, berikan header dasar saja tanpa memaksa HTTPS (HSTS) atau CSP
+  if (isApiRoute) {
+    // Kita tetap tambahkan header dasar seperti anti-XSS atau nosniff
+    Object.entries(SECURITY_HEADERS).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+    return response;
+  }
+
+  // 2. Untuk halaman UI biasa, kita tambahkan semua security headers
   Object.entries(SECURITY_HEADERS).forEach(([key, value]) => {
     response.headers.set(key, value);
   });
@@ -19,11 +30,14 @@ export function middleware(request: NextRequest) {
   // Content Security Policy
   response.headers.set('Content-Security-Policy', getCSPHeader());
 
-  // Strict Transport Security (HSTS)
-  response.headers.set(
-    'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload'
-  );
+  // 3. Strict Transport Security (HSTS)
+  // Hanya jalankan di production agar tidak error saat testing di localhost (HTTP)
+  if (!isDev) {
+    response.headers.set(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload'
+    );
+  }
 
   return response;
 }

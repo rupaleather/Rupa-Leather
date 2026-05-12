@@ -12,8 +12,8 @@ export interface ValidationResult {
  * Validate email address
  */
 export function validateEmail(email: string): ValidationResult {
+  if (!email.trim()) return { valid: true }; // Email is optional
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!email.trim()) return { valid: false, error: 'Email wajib diisi' };
   if (!regex.test(email)) return { valid: false, error: 'Format email tidak valid' };
   return { valid: true };
 }
@@ -23,9 +23,20 @@ export function validateEmail(email: string): ValidationResult {
  */
 export function validatePhone(phone: string): ValidationResult {
   const cleaned = phone.replace(/[\s-]/g, '');
-  const regex = /^(\+62|62|0)8[1-9][0-9]{7,10}$/;
+  // The normalized format we want is just the numbers starting with 8
+  // Minimum 10 digits (e.g., 8123456789)
+  const regex = /^8[0-9]{9,12}$/;
+  
   if (!cleaned) return { valid: false, error: 'Nomor telepon wajib diisi' };
-  if (!regex.test(cleaned)) return { valid: false, error: 'Format nomor telepon tidak valid' };
+  
+  // If it still starts with +62, 62, or 0, it means it hasn't been normalized yet
+  let normalized = cleaned;
+  if (normalized.startsWith('+62')) normalized = normalized.slice(3);
+  else if (normalized.startsWith('62')) normalized = normalized.slice(2);
+  else if (normalized.startsWith('0')) normalized = normalized.slice(1);
+  
+  if (!regex.test(normalized)) return { valid: false, error: 'Format nomor telepon tidak valid (min. 10 digit)' };
+  
   return { valid: true };
 }
 

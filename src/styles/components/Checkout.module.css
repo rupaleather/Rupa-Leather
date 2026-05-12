@@ -1,7 +1,7 @@
 .checkoutGrid {
   display: grid;
   grid-template-columns: 1fr 450px;
-  gap: var(--space-16);
+  gap: var(--space-10);
   align-items: start;
 }
 
@@ -20,29 +20,38 @@
 }
 
 .formGroup {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 4px;
 }
 
 .inputLabel {
-  display: none; /* We use placeholders like the screenshot */
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.requiredStar {
+  color: #ff4d4f;
+  margin-left: 2px;
 }
 
 .inputField {
   width: 100%;
-  padding: var(--space-4);
+  padding: 0.625rem 0.75rem;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: var(--radius-md);
@@ -101,22 +110,35 @@
   padding-right: 2.5rem;
 }
 
+.selectDisabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .textareaField {
-  min-height: 120px;
+  min-height: 60px;
   resize: vertical;
 }
 
 .orderSummary {
   background: #f9fafb;
-  padding: var(--space-8);
+  padding: var(--space-6);
+  margin-top: 21px; /* Align top of box with top of input field */
   border-radius: var(--radius-lg);
   border: 1px solid #e5e7eb;
+}
+
+.summaryTitle {
+  margin-top: 0;
+  margin-bottom: var(--space-6);
 }
 
 .summaryItem {
   display: flex;
   gap: var(--space-4);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .itemThumb {

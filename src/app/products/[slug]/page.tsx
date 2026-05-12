@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getProductBySlug, getRelatedProducts } from '@/data/products';
@@ -15,9 +15,11 @@ export default function ProductDetailPage() {
   const slug = params?.slug as string;
   const product = getProductBySlug(slug);
   const { addItem, openCart } = useCart();
+  const router = useRouter();
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || '');
   const [includeBox, setIncludeBox] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [showToast, setShowToast] = useState(false);
 
   if (!product) {
     return (
@@ -36,19 +38,34 @@ export default function ProductDetailPage() {
   const currentPrice = product.salePrice || product.price;
   const totalPrice = (currentPrice + (includeBox ? boxPrice : 0)) * quantity;
 
-  const handleAddToCart = () => {
+  const handleAddToCartOnly = () => {
     addItem({
       id: product.id,
       name: `${product.name}${includeBox ? ' (+Box Eksklusif)' : ''}`,
       slug: product.slug,
-      price: product.price,
-      salePrice: product.salePrice ? product.salePrice + (includeBox ? boxPrice : 0) : null,
-      basePrice: product.price + (includeBox ? boxPrice : 0),
+      price: product.price + (includeBox ? boxPrice : 0),
+      salePrice: product.salePrice ? product.salePrice + (includeBox ? boxPrice : 0) : undefined,
       image: imageSrc,
       color: selectedColor,
       quantity,
     });
-    openCart();
+    // Show toast and hide after 3 seconds
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const handleBuyNow = () => {
+    addItem({
+      id: product.id,
+      name: `${product.name}${includeBox ? ' (+Box Eksklusif)' : ''}`,
+      slug: product.slug,
+      price: product.price + (includeBox ? boxPrice : 0),
+      salePrice: product.salePrice ? product.salePrice + (includeBox ? boxPrice : 0) : undefined,
+      image: imageSrc,
+      color: selectedColor,
+      quantity,
+    });
+    router.push('/checkout');
   };
 
   return (
@@ -182,10 +199,10 @@ export default function ProductDetailPage() {
                   +
                 </button>
               </div>
-              <button className="btn btn-outline btn-lg" onClick={handleAddToCart} style={{ flex: 1, textTransform: 'none', gap: '8px' }}>
+              <button className="btn btn-outline btn-lg" onClick={handleAddToCartOnly} style={{ flex: 1, textTransform: 'none', gap: '8px' }}>
                 <FiShoppingCart size={20} /> Masukkan Keranjang
               </button>
-              <button className="btn btn-primary btn-lg" onClick={handleAddToCart} style={{ flex: 1, textTransform: 'none', gap: '8px' }}>
+              <button className="btn btn-primary btn-lg" onClick={handleBuyNow} style={{ flex: 1, textTransform: 'none', gap: '8px' }}>
                 <FiBag size={20} /> Beli Sekarang
               </button>
             </div>
@@ -202,6 +219,36 @@ export default function ProductDetailPage() {
         </section>
       )}
       </div>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#1a1a1a',
+          color: 'white',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          zIndex: 9999,
+          animation: 'slideUp 0.3s ease-out forwards',
+          fontSize: '14px',
+          fontWeight: 500
+        }}>
+          ✅ Produk berhasil ditambahkan ke keranjang
+          <style jsx>{`
+            @keyframes slideUp {
+              from { transform: translate(-50%, 100%); opacity: 0; }
+              to { transform: translate(-50%, 0); opacity: 1; }
+            }
+          `}</style>
+        </div>
+      )}
     </div>
   );
 }

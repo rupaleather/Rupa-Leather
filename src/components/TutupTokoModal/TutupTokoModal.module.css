@@ -1,0 +1,362 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2.5rem 2rem 4rem;
+  overflow: hidden;
+  background-color: #f1f5f9;
+}
+
+.contentWrapper {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tabActive {
+  color: #f97316;
+  border-bottom-color: #f97316;
+}
+
+.tab:hover:not(.tabActive) {
+  color: #1e293b;
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.settingItem {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 0;
+}
+
+.settingItemWithBorder {
+  border-bottom: 1px dashed #e2e8f0;
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.settingItem:last-child {
+  border-bottom: none;
+}
+
+.settingLabel {
+  width: 350px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.settingLabelDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.switch {
+  width: 48px;
+  height: 24px;
+  background-color: #cbd5e1;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.switchDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.switchActive {
+  background-color: #f97316;
+}
+
+.switchHandle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.switchHandleActive {
+  transform: translateX(24px);
+}
+
+.switchLabel {
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: white;
+  z-index: 1;
+}
+
+.switchLabelOn {
+  left: 8px;
+}
+
+.switchLabelOff {
+  right: 8px;
+  color: #64748b;
+}
+
+.rightPanel {
+  width: 500px;
+  background-color: #f1f5f9;
+  padding: 3rem 2.5rem 2rem 2.5rem;
+  border-left: 1px solid #e2e8f0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.receiptPreview {
+  background-color: white;
+  width: 100%;
+  max-width: 350px;
+  max-height: calc(100vh - 200px);
+  padding: 0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: #000000;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.receiptPreview * {
+  color: #000000 !important;
+  font-family: inherit !important;
+}
+
+.receiptStickyHeader {
+  padding: 2rem 1.5rem 0 1.5rem;
+  background-color: white;
+  z-index: 10;
+}
+
+.receiptScrollableBody {
+  padding: 0 1.5rem 2rem 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.receiptHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #000000;
+}
+
+.receiptTitle {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.receiptLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  color: #000000;
+}
+
+.receiptHeaderInfo {
+  display: flex;
+  margin-bottom: 0.25rem;
+  color: #000000;
+}
+
+.receiptHeaderInfo span:first-child {
+  width: 110px;
+  flex-shrink: 0;
+  color: #000000;
+}
+
+.receiptHeaderInfo span:last-child {
+  color: #000000;
+}
+
+.receiptLine span {
+  color: #000000;
+}
+
+.receiptLine span:first-child {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.receiptDivider {
+  border-bottom: 1px dashed #000000;
+  margin: 0.75rem 0;
+}
+
+.receiptDividerDouble {
+  border-bottom: 1px double #000000;
+  border-top: 1px double #000000;
+  height: 3px;
+  margin: 0.75rem 0;
+}
+
+.footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  background-color: white;
+}
+
+.btnCancel {
+  background: white;
+  border: none;
+  color: #f97316;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.btnCancel:hover {
+  background-color: #fff7ed;
+}
+
+.btnSave {
+  background: #f97316;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.btnSave:hover {
+  background: #ea580c;
+}
+
+.btnPrint {
+  background: white;
+  border: 1px solid #f97316;
+  color: #f97316;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btnPrint:hover {
+  background-color: #fff7ed;
+}

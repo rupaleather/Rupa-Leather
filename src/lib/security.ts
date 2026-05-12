@@ -57,12 +57,13 @@ export function validateOrigin(origin: string | null, allowedOrigins: string[]):
 export function getCSPHeader(): string {
   const directives = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://app.sandbox.midtrans.com https://app.midtrans.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://app.sandbox.midtrans.com https://app.midtrans.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: blob: https: http:",
     "media-src 'self' blob: https:",
-    "connect-src 'self' https://www.google-analytics.com https://api.whatsapp.com",
+    "connect-src 'self' https://www.google-analytics.com https://api.whatsapp.com https://app.sandbox.midtrans.com https://app.midtrans.com",
+    "frame-src https://app.sandbox.midtrans.com https://app.midtrans.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
