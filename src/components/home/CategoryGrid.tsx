@@ -22,7 +22,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
 
 export default function CategoryGrid() {
   const totalItems = CATEGORIES.length;
-  const [currentIndex, setCurrentIndex] = useState(totalItems);
+  const [currentIndex, setCurrentIndex] = useState<number>(totalItems);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const itemsToShow = 4;
 
