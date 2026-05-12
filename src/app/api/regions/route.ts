@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
 
       if (error) throw error;
 
-      const unique = data?.map(d => d.provinsi) || [];
+      const unique = data?.map((d: any) => d.provinsi) || [];
       return NextResponse.json({ data: unique });
     }
 
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 
       if (error) throw error;
 
-      const unique = data?.map(d => d.kota_kabupaten) || [];
+      const unique = data?.map((d: any) => d.kota_kabupaten) || [];
       return NextResponse.json({ data: unique });
     }
 
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
       if (error) throw error;
 
-      const unique = data?.map(d => d.kecamatan) || [];
+      const unique = data?.map((d: any) => d.kecamatan) || [];
       return NextResponse.json({ data: unique });
     }
 
@@ -66,8 +66,8 @@ export async function GET(request: NextRequest) {
 
       if (error) throw error;
 
-      const unique = data?.filter(d => d.kelurahan && d.kelurahan !== '-')
-        .map(d => ({ name: d.kelurahan, kode_pos: d.kode_pos })) || [];
+      const unique = data?.filter((d: any) => d.kelurahan && d.kelurahan !== '-')
+        .map((d: any) => ({ name: d.kelurahan, kode_pos: d.kode_pos })) || [];
 
       // Deduplicate by name
       const seen = new Set();
