@@ -117,3 +117,47 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 640px) {
+  .section {
+    padding: var(--space-16) 0;
+  }
+
+  .grid {
+    gap: var(--space-8);
+  }
+
+  .textContent {
+    padding: 0 var(--space-4);
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .desc {
+    font-size: var(--text-base);
+    max-width: 100%;
+  }
+
+  .imageWrapper {
+    max-width: 260px;
+    margin: 0 auto;
+    border-radius: 60px;
+  }
+
+  .secondaryImageWrapper {
+    width: 240px;
+    right: -20px;
+    bottom: -40px;
+    border-radius: 60px;
+  }
+
+  .imageCol {
+    padding: 0 var(--space-4);
+  }
+
+  .sigText {
+    font-size: var(--text-lg);
+  }
+}

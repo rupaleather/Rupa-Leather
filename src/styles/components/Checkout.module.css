@@ -233,3 +233,44 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .checkoutTitle {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .sectionTitle {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .orderSummary {
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .summaryItem {
+    gap: var(--space-3);
+  }
+
+  .itemThumb {
+    width: 64px;
+    height: 64px;
+  }
+
+  .itemName {
+    font-size: var(--text-sm);
+  }
+
+  .checkoutBtn {
+    padding: var(--space-4);
+    font-size: var(--text-base);
+    margin-top: var(--space-6);
+  }
+}

@@ -356,8 +356,92 @@
 }
 
 @media (max-width: 640px) {
-  .toolbar { flex-direction: column; align-items: stretch; }
-  .searchWrap { max-width: 100%; }
-  .specs { grid-template-columns: 1fr; }
-  .addToCartRow { flex-direction: column; }
+  .pageHeader {
+    padding: calc(var(--navbar-height) + var(--space-8)) 0 var(--space-8);
+  }
+
+  .pageTitle {
+    font-size: var(--text-2xl);
+  }
+
+  .pageDesc {
+    font-size: var(--text-sm);
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    padding: var(--space-4) 0;
+  }
+
+  .searchWrap {
+    max-width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-6) 0 var(--space-10);
+  }
+
+  .detailGrid {
+    padding: calc(var(--navbar-height) + var(--space-6)) 0 var(--space-8);
+    gap: var(--space-6);
+  }
+
+  .detailTitle {
+    font-size: var(--text-2xl);
+  }
+
+  .detailSalePrice {
+    font-size: var(--text-2xl);
+  }
+
+  .detailOrigPrice {
+    font-size: var(--text-base);
+  }
+
+  .specs {
+    grid-template-columns: 1fr;
+  }
+
+  .actionBox {
+    padding: var(--space-4);
+  }
+
+  .addToCartRow {
+    flex-direction: column;
+  }
+
+  .addToCartRow .btn {
+    width: 100%;
+  }
+
+  .mainImage {
+    aspect-ratio: 1/1;
+    font-size: 4rem;
+  }
+
+  .thumb {
+    width: 56px;
+    height: 56px;
+  }
+
+  .relatedSection {
+    padding: var(--space-10) 0;
+  }
+
+  .relatedTitle {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .colorOptions {
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb {
+    flex-wrap: wrap;
+  }
 }

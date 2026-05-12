@@ -368,4 +368,43 @@
     height: 30px;
     font-size: var(--text-sm);
   }
+
+  .logoImg {
+    height: 48px;
+  }
+
+  .logoText {
+    font-size: 1.15rem;
+  }
+
+  .iconBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .navActions {
+    gap: var(--space-2);
+  }
+
+  .limitedEditionLink {
+    display: none;
+  }
+
+  .mobileMenu {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .mobileNavLink {
+    font-size: var(--text-xl);
+    padding: var(--space-4) 0;
+  }
+
+  .cartBadge {
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
+    top: -4px;
+    right: -4px;
+  }
 }

@@ -147,3 +147,33 @@
   padding: var(--space-4);
   font-size: var(--text-base);
 }
+
+@media (max-width: 640px) {
+  .drawer {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .header {
+    padding: var(--space-4);
+  }
+
+  .items {
+    padding: var(--space-3);
+  }
+
+  .itemImage {
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+  }
+
+  .cartItem {
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .footer {
+    padding: var(--space-4);
+  }
+}

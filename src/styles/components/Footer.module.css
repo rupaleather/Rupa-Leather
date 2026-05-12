@@ -281,6 +281,21 @@
   .footerGrid {
     grid-template-columns: 1fr;
     gap: var(--space-8);
+    transform: none;
+    margin-bottom: var(--space-8);
+  }
+
+  .footerCol {
+    transform: none;
+    top: 0;
+  }
+
+  .brandCol p {
+    max-width: 100%;
+  }
+
+  .copyrightRow {
+    transform: none;
   }
 
   .footerBottom {
@@ -292,5 +307,22 @@
   .copyrightGroup {
     flex-direction: column;
     gap: var(--space-1);
+  }
+
+  .whatsappWrapper {
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .whatsappFloat {
+    width: 48px;
+    height: 48px;
+    font-size: 26px;
+  }
+
+  .whatsappBubble {
+    max-width: 200px;
+    font-size: 12px;
+    padding: 12px 18px 12px 14px;
   }
 }

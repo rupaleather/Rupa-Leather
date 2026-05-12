@@ -73,3 +73,29 @@
     max-height: 40px;
   }
 }
+
+@media (max-width: 640px) {
+  .clientSection {
+    padding: 24px 0 12px;
+  }
+
+  .sectionTitle {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+
+  .marqueeTrack {
+    gap: 32px;
+    padding-left: 32px;
+  }
+
+  .logoWrapper {
+    height: 40px;
+    min-width: 80px;
+  }
+
+  .clientImg {
+    max-width: 80px;
+    max-height: 30px;
+  }
+}

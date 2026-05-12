@@ -366,14 +366,87 @@
 }
 
 @media (max-width: 640px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .heroGrid {
+    padding: calc(var(--navbar-height) + var(--space-8)) var(--space-4) var(--space-8);
+  }
+
+  .heroTitle {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .heroDesc {
+    font-size: var(--text-base);
+    text-align: center;
+    text-align-last: center;
+  }
+
+  .heroLabel {
+    font-size: 10px;
+  }
+
+  .heroLabel::before,
+  .heroLabel::after {
+    width: 24px;
+  }
+
   .heroStats {
     flex-direction: column;
     gap: var(--space-4);
     align-items: center;
   }
 
+  .stat h4 {
+    font-size: var(--text-2xl);
+  }
+
   .heroCtas {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .heroCtas .btn,
+  .heroCtas a {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .sliderControls {
+    margin-top: var(--space-8);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+
+  .playPauseBtn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ornamentBL,
+  .ornamentTR {
+    width: 250px;
+    height: 250px;
+    opacity: 0.3;
+  }
+
+  .ornamentBL {
+    bottom: -20px;
+    left: -40px;
+  }
+
+  .ornamentTR {
+    top: 60px;
+    right: -40px;
   }
 }

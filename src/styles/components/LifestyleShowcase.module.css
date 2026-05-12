@@ -85,3 +85,34 @@
     font-size: 2.5rem;
   }
 }
+
+@media (max-width: 640px) {
+  .section {
+    padding: var(--space-12) 0 0 0;
+    margin-bottom: -100px;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    white-space: normal;
+  }
+
+  .desc {
+    font-size: var(--text-base);
+    padding: 0 var(--space-4);
+  }
+
+  .textContent {
+    margin: var(--space-8) auto;
+    gap: var(--space-4);
+  }
+
+  .imageGrid {
+    margin: var(--space-6) 0;
+  }
+
+  .videoBtn {
+    padding: 10px 20px;
+    font-size: var(--text-xs);
+  }
+}
