@@ -126,3 +126,22 @@
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 2px;
 }
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .productGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+.viewAllWrap {
+  text-align: center;
+  margin-top: var(--space-8);
+}
