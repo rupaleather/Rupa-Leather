@@ -1539,3 +1539,26 @@
   text-transform: uppercase;
   text-align: center;
 }
+.helpBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.helpBtn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.helpBtn svg {
+  font-size: 1.1rem;
+}

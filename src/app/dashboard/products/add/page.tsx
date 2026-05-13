@@ -247,26 +247,15 @@ export default function AddProductPage() {
     fetchOutlets();
   }, []);
 
-  // Check if tour should be shown (first time or no products)
+  // Check if tour should be shown (first time)
   useEffect(() => {
-    const checkTourStatus = async () => {
-      const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
-      if (hasSeenTour) return;
-
-      try {
-        const { count, error } = await supabaseBrowser
-          .from('products')
-          .select('*', { count: 'exact', head: true });
-        
-        if (!error && (count === 0 || count === null)) {
-          setShowTour(true);
-          setTourStep(1);
-        }
-      } catch (err) {
-        console.error("Error checking product count:", err);
-      }
-    };
-    checkTourStatus();
+    const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
+    console.log('Tour status check:', { hasSeenTour, showTour, tourStep });
+    
+    if (!hasSeenTour) {
+      setShowTour(true);
+      setTourStep(1);
+    }
   }, []);
 
   // Update popover position when tour step changes
@@ -276,31 +265,44 @@ export default function AddProductPage() {
     const step = TOUR_STEPS[tourStep - 1];
     const targetRef = tourRefs[step.target as keyof typeof tourRefs];
 
+    console.log('Calculating popover for step:', tourStep, 'Target:', step.target);
+
     if (targetRef.current) {
       const rect = targetRef.current.getBoundingClientRect();
       const scrollY = window.scrollY;
       
-      // Basic positioning logic - can be refined
+      console.log('Target Rect:', rect);
+
+      // Positioning logic
       if (step.target === 'save') {
         setPopoverPos({
-          top: rect.top + scrollY - 140,
-          left: rect.left - 150,
+          top: rect.top + scrollY - 160,
+          left: rect.left - 40,
           arrow: 'bottom'
+        });
+      } else if (step.target === 'photo') {
+        setPopoverPos({
+          top: rect.top + scrollY + 40,
+          left: rect.right + 20,
+          arrow: 'left'
         });
       } else {
         setPopoverPos({
-          top: rect.top + scrollY - 20,
+          top: rect.top + scrollY - 10,
           left: rect.right + 20,
           arrow: 'left'
         });
       }
 
-      // Scroll target into view if needed
+      // Scroll target into view
       targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      console.warn('Target ref not found for step:', tourStep);
     }
   }, [tourStep, showTour]);
 
   const handleNextTour = () => {
+    console.log('Next tour step from:', tourStep);
     if (tourStep < 8) {
       setTourStep(prev => prev + 1);
     } else {
@@ -309,9 +311,16 @@ export default function AddProductPage() {
   };
 
   const handleSkipTour = () => {
+    console.log('Skipping/Finishing tour');
     setShowTour(false);
     setTourStep(0);
     localStorage.setItem('hasSeenAddProductTour', 'true');
+  };
+
+  const restartTour = () => {
+    localStorage.removeItem('hasSeenAddProductTour');
+    setTourStep(1);
+    setShowTour(true);
   };
 
   // Sync combinations whenever variantGroups change
@@ -771,7 +780,12 @@ export default function AddProductPage() {
           </nav>
         )}
 
-        <div className={styles.topBarRight}></div>
+        <div className={styles.topBarRight}>
+          <button className={styles.helpBtn} onClick={restartTour} title="Ulangi Panduan">
+            <FiHelpCircle />
+            <span>Bantuan</span>
+          </button>
+        </div>
       </header>
 
       {/* Scrollable Form Content */}
