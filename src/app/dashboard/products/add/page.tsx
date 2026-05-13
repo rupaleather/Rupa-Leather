@@ -21,11 +21,56 @@ import {
   FiMaximize2,
   FiPlusCircle,
   FiFileText,
-  FiChevronRight
+  FiChevronRight,
+  FiArrowLeft
 } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/dashboard/products/AddProduct.module.css';
 import { supabaseBrowser } from '@/lib/supabase';
+
+// Tour steps definition
+const TOUR_STEPS = [
+  {
+    title: 'Daftar Outlet',
+    content: 'Tambahkan produk pada outlet yang diinginkan',
+    target: 'outlet'
+  },
+  {
+    title: 'Nama Produk',
+    content: 'Masukkan nama produk yang unik dan menarik',
+    target: 'name'
+  },
+  {
+    title: 'Deskripsi Produk',
+    content: 'Tuliskan deskripsi lengkap mengenai produk Anda',
+    target: 'description'
+  },
+  {
+    title: 'Foto Produk',
+    content: 'Unggah foto produk terbaik Anda (maks. 10 foto)',
+    target: 'photo'
+  },
+  {
+    title: 'Kategori Produk',
+    content: 'Pilih kategori yang sesuai untuk produk ini',
+    target: 'category'
+  },
+  {
+    title: 'Satuan',
+    content: 'Pilih satuan terkecil untuk stok produk Anda',
+    target: 'unit'
+  },
+  {
+    title: 'Harga Jual',
+    content: 'Tentukan harga jual produk ke pelanggan',
+    target: 'price'
+  },
+  {
+    title: 'Simpan',
+    content: 'Klik simpan jika semua data sudah benar',
+    target: 'save'
+  }
+];
 
 export default function AddProductPage() {
   const router = useRouter();
@@ -33,7 +78,23 @@ export default function AddProductPage() {
   const categoryRef = React.useRef<HTMLDivElement>(null);
   const groupRef = React.useRef<HTMLDivElement>(null);
   const unitRef = React.useRef<HTMLDivElement>(null);
+  
+  // Tour Refs
+  const tourRefs = {
+    outlet: useRef<HTMLDivElement>(null),
+    name: useRef<HTMLTextAreaElement>(null),
+    description: useRef<HTMLTextAreaElement>(null),
+    photo: useRef<HTMLDivElement>(null),
+    category: useRef<HTMLDivElement>(null),
+    unit: useRef<HTMLDivElement>(null),
+    price: useRef<HTMLDivElement>(null),
+    save: useRef<HTMLButtonElement>(null),
+  };
+
   const [currentStep, setCurrentStep] = useState('informasi');
+  const [tourStep, setTourStep] = useState(0); // 0 means no tour, 1-8 are steps
+  const [showTour, setShowTour] = useState(false);
+  const [popoverPos, setPopoverPos] = useState({ top: 0, left: 0, arrow: 'left' });
 
   const [errors, setErrors] = useState<string[]>([]);
   const [notification, setNotification] = useState<'success' | 'warning' | 'error' | null>(null);
@@ -185,6 +246,73 @@ export default function AddProductPage() {
     };
     fetchOutlets();
   }, []);
+
+  // Check if tour should be shown (first time or no products)
+  useEffect(() => {
+    const checkTourStatus = async () => {
+      const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
+      if (hasSeenTour) return;
+
+      try {
+        const { count, error } = await supabaseBrowser
+          .from('products')
+          .select('*', { count: 'exact', head: true });
+        
+        if (!error && (count === 0 || count === null)) {
+          setShowTour(true);
+          setTourStep(1);
+        }
+      } catch (err) {
+        console.error("Error checking product count:", err);
+      }
+    };
+    checkTourStatus();
+  }, []);
+
+  // Update popover position when tour step changes
+  useEffect(() => {
+    if (!showTour || tourStep === 0) return;
+
+    const step = TOUR_STEPS[tourStep - 1];
+    const targetRef = tourRefs[step.target as keyof typeof tourRefs];
+
+    if (targetRef.current) {
+      const rect = targetRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      
+      // Basic positioning logic - can be refined
+      if (step.target === 'save') {
+        setPopoverPos({
+          top: rect.top + scrollY - 140,
+          left: rect.left - 150,
+          arrow: 'bottom'
+        });
+      } else {
+        setPopoverPos({
+          top: rect.top + scrollY - 20,
+          left: rect.right + 20,
+          arrow: 'left'
+        });
+      }
+
+      // Scroll target into view if needed
+      targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [tourStep, showTour]);
+
+  const handleNextTour = () => {
+    if (tourStep < 8) {
+      setTourStep(prev => prev + 1);
+    } else {
+      handleSkipTour();
+    }
+  };
+
+  const handleSkipTour = () => {
+    setShowTour(false);
+    setTourStep(0);
+    localStorage.setItem('hasSeenAddProductTour', 'true');
+  };
 
   // Sync combinations whenever variantGroups change
   useEffect(() => {
@@ -789,7 +917,7 @@ export default function AddProductPage() {
                 <div className={styles.twoColumnRow}>
                   <div className={styles.leftCol} style={{ paddingTop: '0rem', paddingBottom: '1.75rem' }}>Daftar Outlet<span style={{ color: '#ef4444' }}>*</span></div>
                   <div className={styles.rightCol} style={{ paddingTop: '0.15rem', paddingBottom: '0.7rem' }}>
-                    <div style={{ position: 'relative' }}>
+                    <div style={{ position: 'relative' }} ref={tourRefs.outlet}>
                       <div className={styles.customSelect} onClick={() => setIsOutletDropdownOpen(!isOutletDropdownOpen)}>
                         <span style={{ color: selectedOutlets.length > 0 ? '#0f172a' : '#94a3b8' }}>
                           {isLoadingOutlets 
@@ -872,6 +1000,7 @@ export default function AddProductPage() {
                     <div style={{ position: 'relative' }}>
                       <textarea
                         name="name"
+                        ref={tourRefs.name}
                         className={`${styles.input} ${styles.textarea} ${errors.includes('name') ? styles.inputError : ''}`}
                         placeholder="Contoh: nasi padang"
                         value={formData.name}
@@ -888,6 +1017,7 @@ export default function AddProductPage() {
                   <div className={styles.leftCol} style={{ paddingTop: '1.05rem', paddingBottom: '0.7rem' }}>Deskripsi Produk</div>
                   <div className={styles.rightCol} style={{ paddingTop: '0.15rem', paddingBottom: '0.7rem' }}>
                     <textarea
+                      ref={tourRefs.description}
                       className={`${styles.input} ${styles.textarea}`}
                       placeholder="Contoh: yang best seller"
                       style={{ height: '60px' }}
@@ -947,6 +1077,7 @@ export default function AddProductPage() {
                       {savedImages.length < 10 && (
                         <div 
                           className={styles.uploadBoxSmall} 
+                          ref={tourRefs.photo}
                           onClick={() => fileInputRef.current?.click()}
                         >
                           <FiUpload style={{ fontSize: '1.5rem', color: '#94a3b8' }} />
@@ -960,7 +1091,7 @@ export default function AddProductPage() {
                 <div className={styles.twoColumnRow}>
                   <div className={styles.leftCol}>Kategori Produk<span style={{ color: '#ef4444' }}>*</span></div>
                   <div className={styles.rightCol} style={{ paddingTop: '0.4rem' }}>
-                    <div className={styles.customDropdown} ref={categoryRef}>
+                    <div className={styles.customDropdown} ref={tourRefs.category}>
                       <div 
                         className={`${styles.dropdownHeader} ${isCategoryOpen ? styles.dropdownHeaderActive : ''} ${errors.includes('category') ? styles.inputError : ''}`}
                         onClick={() => setIsCategoryOpen(!isCategoryOpen)}
@@ -1187,7 +1318,7 @@ export default function AddProductPage() {
                     <div className={styles.grid2} style={{ marginBottom: '0.75rem' }}>
                       <div className={styles.inputGroup}>
                         <label className={`${styles.label} ${styles.labelRequired}`}>Satuan<span style={{ color: '#ef4444' }}>*</span></label>
-                        <div className={styles.customDropdown} ref={unitRef}>
+                        <div className={styles.customDropdown} ref={tourRefs.unit}>
                           <div 
                             className={`${styles.dropdownHeader} ${isUnitOpen ? styles.dropdownHeaderActive : ''} ${errors.includes('unit') ? styles.inputError : ''}`}
                             onClick={() => setIsUnitOpen(!isUnitOpen)}
@@ -1267,7 +1398,7 @@ export default function AddProductPage() {
                     <div className={styles.grid2}>
                       <div className={styles.inputGroup}>
                         <label className={`${styles.label} ${styles.labelRequired}`}>Harga Jual<span style={{ color: '#ef4444' }}>*</span></label>
-                        <div style={{ position: 'relative' }}>
+                        <div style={{ position: 'relative' }} ref={tourRefs.price}>
                           <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 600, color: '#475569', fontSize: '0.9rem' }}>Rp</span>
                           <input
                             type="text"
@@ -1930,7 +2061,10 @@ export default function AddProductPage() {
                 Kembali
               </div>
               <button 
-                className={styles.btnSimpan} 
+                className={`${styles.saveBtn} ${isFormValid ? styles.saveBtnActive : ''}`}
+                disabled={!isFormValid}
+                ref={tourRefs.save}
+                onClick={handleSave}
                 style={{ 
                   background: '#ff6b00', 
                   border: 'none', 
@@ -1940,7 +2074,6 @@ export default function AddProductPage() {
                   fontWeight: 700, 
                   cursor: 'pointer'
                 }}
-                onClick={handleSave}
               >
                 Simpan
               </button>
@@ -2478,6 +2611,35 @@ export default function AddProductPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Onboarding Tour UI */}
+      {showTour && tourStep > 0 && (
+        <>
+          <div className={styles.tourOverlay} />
+          <div 
+            className={styles.tourPopover}
+            style={{
+              top: `${popoverPos.top}px`,
+              left: `${popoverPos.left}px`,
+            }}
+          >
+            <div className={`${styles.tourArrow} ${styles[`tourArrow${popoverPos.arrow.charAt(0).toUpperCase() + popoverPos.arrow.slice(1)}`]}`} />
+            <div className={styles.tourHeader}>
+              <h3 className={styles.tourTitle}>{TOUR_STEPS[tourStep - 1].title}</h3>
+            </div>
+            <div className={styles.tourContent}>
+              {TOUR_STEPS[tourStep - 1].content}
+            </div>
+            <div className={styles.tourFooter}>
+              <button className={styles.tourSkip} onClick={handleSkipTour}>Lewati</button>
+              <button className={styles.tourNext} onClick={handleNextTour}>
+                {tourStep === 8 ? 'Selesai' : 'Lanjut'}
+                <span className={styles.tourStepIndicator}>({tourStep} / 8)</span>
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

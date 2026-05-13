@@ -802,6 +802,120 @@
   display: block;
 }
 
+/* Onboarding Tour Styles */
+.tourOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.tourPopover {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  width: 280px;
+  z-index: 10001;
+  pointer-events: auto;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tourArrow {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  z-index: 10002;
+}
+
+.tourArrowRight {
+  right: -6px;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.tourArrowLeft {
+  left: -6px;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.tourArrowTop {
+  top: -6px;
+  left: 50%;
+  margin-left: -6px;
+}
+
+.tourArrowBottom {
+  bottom: -6px;
+  left: 50%;
+  margin-left: -6px;
+}
+
+.tourHeader {
+  margin-bottom: 0.75rem;
+}
+
+.tourTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tourContent {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.tourFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tourSkip {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.tourNext {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tourStepIndicator {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 400;
+  margin-left: 0.25rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 
 
 .grid2 {
