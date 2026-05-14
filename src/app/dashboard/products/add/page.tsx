@@ -276,21 +276,16 @@ export default function AddProductPage() {
       // Positioning logic
       if (step.target === 'save') {
         setPopoverPos({
-          top: rect.top + scrollY - 160,
-          left: rect.left - 40,
+          top: rect.top + scrollY - 180,
+          left: rect.left - 340,
           arrow: 'bottom'
         });
-      } else if (step.target === 'photo') {
-        setPopoverPos({
-          top: rect.top + scrollY + 40,
-          left: rect.right + 20,
-          arrow: 'left'
-        });
       } else {
+        // Position to the left of the target
         setPopoverPos({
-          top: rect.top + scrollY - 10,
-          left: rect.right + 20,
-          arrow: 'left'
+          top: rect.top + scrollY - 20,
+          left: rect.left - 340, // 320px width + 20px gap
+          arrow: 'right'
         });
       }
 
@@ -2648,8 +2643,7 @@ export default function AddProductPage() {
             <div className={styles.tourFooter}>
               <button className={styles.tourSkip} onClick={handleSkipTour}>Lewati</button>
               <button className={styles.tourNext} onClick={handleNextTour}>
-                {tourStep === 8 ? 'Selesai' : 'Lanjut'}
-                <span className={styles.tourStepIndicator}>({tourStep} / 8)</span>
+                {tourStep === 8 ? 'Selesai' : `Lanjut (${tourStep} / 8)`}
               </button>
             </div>
           </div>

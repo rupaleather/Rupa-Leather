@@ -814,46 +814,61 @@
 .tourPopover {
   position: absolute;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  padding: 1.25rem;
-  width: 280px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem;
+  width: 320px;
   z-index: 10001;
   pointer-events: auto;
   animation: fadeIn 0.3s ease-out;
+  border: 1px solid #f1f5f9;
 }
 
 .tourArrow {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: white;
   transform: rotate(45deg);
   z-index: 10002;
+  border-right: 1px solid #f1f5f9;
+  border-top: 1px solid #f1f5f9;
 }
 
 .tourArrowRight {
-  right: -6px;
+  right: -8px;
   top: 50%;
-  margin-top: -6px;
+  margin-top: -7px;
 }
 
 .tourArrowLeft {
-  left: -6px;
+  left: -8px;
   top: 50%;
-  margin-top: -6px;
+  margin-top: -7px;
+  border-right: none;
+  border-top: none;
+  border-left: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .tourArrowTop {
-  top: -6px;
+  top: -8px;
   left: 50%;
-  margin-left: -6px;
+  margin-left: -7px;
+  border-right: none;
+  border-top: 1px solid #f1f5f9;
+  border-left: 1px solid #f1f5f9;
+  border-bottom: none;
 }
 
 .tourArrowBottom {
-  bottom: -6px;
+  bottom: -8px;
   left: 50%;
-  margin-left: -6px;
+  margin-left: -7px;
+  border-right: 1px solid #f1f5f9;
+  border-top: none;
+  border-left: none;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .tourHeader {
@@ -861,31 +876,35 @@
 }
 
 .tourTitle {
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: #0f172a;
   margin: 0;
 }
 
 .tourContent {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #475569;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
 .tourFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1rem;
 }
 
 .tourSkip {
   background: none;
   border: none;
-  color: #ff6b00;
+  color: #10b981; /* Green color for skip in image? No, wait... */
+  /* Actually image has green-ish color for majoo, but user says orange */
+  color: #ff6b00; 
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
   padding: 0;
 }
@@ -894,20 +913,19 @@
   background: none;
   border: none;
   color: #ff6b00;
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 800;
+  font-size: 0.95rem;
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.4rem;
 }
 
 .tourStepIndicator {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #94a3b8;
   font-weight: 400;
-  margin-left: 0.25rem;
 }
 
 @keyframes fadeIn {
