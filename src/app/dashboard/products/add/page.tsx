@@ -247,15 +247,54 @@ export default function AddProductPage() {
     fetchOutlets();
   }, []);
 
-  // Check if tour should be shown (first time)
+  // Check if tour should be shown (always show if empty or first time)
   useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
-    console.log('Tour status check:', { hasSeenTour, showTour, tourStep });
-    
-    if (!hasSeenTour) {
-      setShowTour(true);
-      setTourStep(1);
-    }
+    const checkTourStatus = async () => {
+      console.log('🔍 Checking tour status...');
+      
+      try {
+        // 1. Cek jumlah produk di database
+        const { count, error } = await supabaseBrowser
+          .from('products')
+          .select('*', { count: 'exact', head: true });
+        
+        console.log('📦 Product count:', count, 'Error:', error);
+
+        if (error) {
+          console.error('❌ Supabase error:', error);
+          // Jika error DB, fallback ke localStorage
+          const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
+          if (!hasSeenTour) {
+            console.log('🚀 Showing tour (fallback to localStorage)');
+            setShowTour(true);
+            setTourStep(1);
+          }
+          return;
+        }
+
+        // 2. Jika produk masih KOSONG, abaikan localStorage dan tetap tampilkan tour sebagai guide
+        if (count === 0 || count === null) {
+          console.log('✨ Products empty! Showing guide tour...');
+          setShowTour(true);
+          setTourStep(1);
+          return;
+        }
+
+        // 3. Jika sudah ada produk, hanya tampilkan jika belum pernah lihat
+        const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
+        if (!hasSeenTour) {
+          console.log('🚀 Showing tour for the first time (has products)');
+          setShowTour(true);
+          setTourStep(1);
+        } else {
+          console.log('✅ User has seen tour and has products. Skipping.');
+        }
+      } catch (err) {
+        console.error("❌ Critical error checking tour status:", err);
+      }
+    };
+
+    checkTourStatus();
   }, []);
 
   // Update popover position when tour step changes
