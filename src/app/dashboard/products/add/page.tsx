@@ -247,54 +247,11 @@ export default function AddProductPage() {
     fetchOutlets();
   }, []);
 
-  // Check if tour should be shown (always show if empty or first time)
+  // Force show tour for debugging
   useEffect(() => {
-    const checkTourStatus = async () => {
-      console.log('🔍 Checking tour status...');
-      
-      try {
-        // 1. Cek jumlah produk di database
-        const { count, error } = await supabaseBrowser
-          .from('products')
-          .select('*', { count: 'exact', head: true });
-        
-        console.log('📦 Product count:', count, 'Error:', error);
-
-        if (error) {
-          console.error('❌ Supabase error:', error);
-          // Jika error DB, fallback ke localStorage
-          const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
-          if (!hasSeenTour) {
-            console.log('🚀 Showing tour (fallback to localStorage)');
-            setShowTour(true);
-            setTourStep(1);
-          }
-          return;
-        }
-
-        // 2. Jika produk masih KOSONG, abaikan localStorage dan tetap tampilkan tour sebagai guide
-        if (count === 0 || count === null) {
-          console.log('✨ Products empty! Showing guide tour...');
-          setShowTour(true);
-          setTourStep(1);
-          return;
-        }
-
-        // 3. Jika sudah ada produk, hanya tampilkan jika belum pernah lihat
-        const hasSeenTour = localStorage.getItem('hasSeenAddProductTour');
-        if (!hasSeenTour) {
-          console.log('🚀 Showing tour for the first time (has products)');
-          setShowTour(true);
-          setTourStep(1);
-        } else {
-          console.log('✅ User has seen tour and has products. Skipping.');
-        }
-      } catch (err) {
-        console.error("❌ Critical error checking tour status:", err);
-      }
-    };
-
-    checkTourStatus();
+    console.log('🏁 Tour Force Start');
+    setShowTour(true);
+    setTourStep(1);
   }, []);
 
   // Update popover position when tour step changes
@@ -304,34 +261,19 @@ export default function AddProductPage() {
     const step = TOUR_STEPS[tourStep - 1];
     const targetRef = tourRefs[step.target as keyof typeof tourRefs];
 
-    console.log('Calculating popover for step:', tourStep, 'Target:', step.target);
+    console.log('📍 Step:', tourStep, 'Target:', step.target, 'Ref exists:', !!targetRef.current);
 
     if (targetRef.current) {
       const rect = targetRef.current.getBoundingClientRect();
-      const scrollY = window.scrollY;
+      console.log('📐 Rect:', rect);
       
-      console.log('Target Rect:', rect);
+      setPopoverPos({
+        top: rect.top, // Use viewport relative since popover will be fixed
+        left: rect.left - 340,
+        arrow: 'right'
+      });
 
-      // Positioning logic
-      if (step.target === 'save') {
-        setPopoverPos({
-          top: rect.top + scrollY - 180,
-          left: rect.left - 340,
-          arrow: 'bottom'
-        });
-      } else {
-        // Position to the left of the target
-        setPopoverPos({
-          top: rect.top + scrollY - 20,
-          left: rect.left - 340, // 320px width + 20px gap
-          arrow: 'right'
-        });
-      }
-
-      // Scroll target into view
       targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      console.warn('Target ref not found for step:', tourStep);
     }
   }, [tourStep, showTour]);
 
