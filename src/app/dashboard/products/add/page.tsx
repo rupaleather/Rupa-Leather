@@ -56,16 +56,6 @@ const TOUR_STEPS = [
     target: 'category'
   },
   {
-    title: 'Satuan',
-    content: 'Pilih satuan terkecil untuk stok produk Anda',
-    target: 'unit'
-  },
-  {
-    title: 'Harga Jual',
-    content: 'Tentukan harga jual produk ke pelanggan',
-    target: 'price'
-  },
-  {
     title: 'Simpan',
     content: 'Klik simpan jika semua data sudah benar',
     target: 'save'
@@ -348,15 +338,7 @@ export default function AddProductPage() {
   const isFormValid =
     selectedOutlets.length > 0 &&
     formData.name.trim() !== '' &&
-    formData.category !== '' &&
-    formData.unit !== '' &&
-    formData.sku !== '' &&
-    formData.minPurchase !== '' &&
-    formData.salePrice !== '' &&
-    formData.volumeP !== '' &&
-    formData.volumeL !== '' &&
-    formData.volumeT !== '' &&
-    formData.weight !== '';
+    formData.category !== '';
 
   const formatRupiah = (value: string) => {
     if (!value) return '0';
@@ -578,14 +560,6 @@ export default function AddProductPage() {
     if (selectedOutlets.length === 0) newErrors.push('outlet');
     if (!formData.name.trim()) newErrors.push('name');
     if (!formData.category) newErrors.push('category');
-    if (!formData.unit) newErrors.push('unit');
-    if (!formData.sku) newErrors.push('sku');
-    if (!formData.minPurchase || formData.minPurchase === '0') newErrors.push('minPurchase');
-    if (!formData.salePrice || formData.salePrice === '0') newErrors.push('salePrice');
-    if (!formData.volumeP || formData.volumeP === '0') newErrors.push('volumeP');
-    if (!formData.volumeL || formData.volumeL === '0') newErrors.push('volumeL');
-    if (!formData.volumeT || formData.volumeT === '0') newErrors.push('volumeT');
-    if (!formData.weight || formData.weight === '0') newErrors.push('weight');
 
     setErrors(newErrors);
 
@@ -1294,182 +1268,6 @@ export default function AddProductPage() {
                       </div>
                       <span style={{ fontWeight: 500, color: '#475569', fontSize: '0.9rem' }}>Izinkan kasir mengubah produk menjadi tidak tersedia/tidak dapat dijual di POS/Order Online</span>
                     </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Harga dan Satuan Section */}
-              <section className={styles.section} style={{ borderTop: '1px solid #f1f5f9', paddingTop: '2.5rem' }}>
-                <h2 className={styles.sectionTitle}>Harga dan Satuan</h2>
-
-                <div className={styles.twoColumnRow}>
-                  <div className={styles.leftCol}>Satuan<span style={{ color: '#ef4444' }}>*</span></div>
-                  <div className={styles.rightCol}>
-                    <div className={styles.grid2} style={{ marginBottom: '0.75rem' }}>
-                      <div className={styles.inputGroup}>
-                        <label className={`${styles.label} ${styles.labelRequired}`}>Satuan<span style={{ color: '#ef4444' }}>*</span></label>
-                        <div className={styles.customDropdown} ref={tourRefs.unit}>
-                          <div 
-                            className={`${styles.dropdownHeader} ${isUnitOpen ? styles.dropdownHeaderActive : ''} ${errors.includes('unit') ? styles.inputError : ''}`}
-                            onClick={() => setIsUnitOpen(!isUnitOpen)}
-                          >
-                            {formData.unit || 'Pilih'}
-                            <FiChevronDown style={{ 
-                              transform: isUnitOpen ? 'rotate(180deg)' : 'rotate(0)',
-                              transition: 'transform 0.2s'
-                            }} />
-                          </div>
-                          
-                          {isUnitOpen && (
-                            <div className={styles.dropdownList}>
-                              {['Pcs', 'Box', 'Karton'].map((opt) => (
-                                <div 
-                                  key={opt} 
-                                  className={styles.dropdownItem}
-                                  onClick={() => {
-                                    handleInputChange({ target: { name: 'unit', value: opt } } as any);
-                                    setIsUnitOpen(false);
-                                  }}
-                                >
-                                  {opt}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        {errors.includes('unit') && <p className={styles.errorText}>*Mohon lengkapi data</p>}
-                      </div>
-                      <div className={styles.inputGroup}>
-                        <label className={`${styles.label} ${styles.labelRequired}`}>SKU<span style={{ color: '#ef4444' }}>*</span></label>
-                        <input
-                          type="text"
-                          name="sku"
-                          className={`${styles.input} ${errors.includes('sku') ? styles.inputError : ''}`}
-                          placeholder="Contoh: S001"
-                          value={formData.sku}
-                          onChange={handleInputChange}
-                        />
-                        {errors.includes('sku') && <p className={styles.errorText}>*Mohon lengkapi data</p>}
-                      </div>
-                    </div>
-                    <div className={styles.grid2}>
-                      <div className={styles.inputGroup}>
-                        <label className={styles.label}>Konversi</label>
-                        <div style={{ position: 'relative' }}>
-                          <input
-                            type="number"
-                            name="conversion"
-                            className={styles.input}
-                            value={formData.conversion}
-                            onChange={handleInputChange}
-                            style={{ background: '#f8fafc' }}
-                          />
-                          <span style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 600, color: '#94a3b8', fontSize: '0.85rem' }}>{formData.unit}</span>
-                        </div>
-                      </div>
-                      <div className={styles.inputGroup}>
-                        <label className={`${styles.label} ${styles.labelRequired}`}>Min. Pembelian<span style={{ color: '#ef4444' }}>*</span></label>
-                        <input
-                          type="number"
-                          name="minPurchase"
-                          className={`${styles.input} ${errors.includes('minPurchase') ? styles.inputError : ''}`}
-                          value={formData.minPurchase}
-                          onChange={handleInputChange}
-                        />
-                        {errors.includes('minPurchase') && <p className={styles.errorText}>*Mohon lengkapi data</p>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.twoColumnRow}>
-                  <div className={styles.leftCol}>Harga<span style={{ color: '#ef4444' }}>*</span></div>
-                  <div className={styles.rightCol}>
-                    <div className={styles.grid2}>
-                      <div className={styles.inputGroup}>
-                        <label className={`${styles.label} ${styles.labelRequired}`}>Harga Jual<span style={{ color: '#ef4444' }}>*</span></label>
-                        <div style={{ position: 'relative' }} ref={tourRefs.price}>
-                          <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 600, color: '#475569', fontSize: '0.9rem' }}>Rp</span>
-                          <input
-                            type="text"
-                            name="salePrice"
-                            className={`${styles.input} ${errors.includes('salePrice') ? styles.inputError : ''}`}
-                            style={{ paddingLeft: '3rem' }}
-                            value={formData.salePrice}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        {errors.includes('salePrice') && <p className={styles.errorText}>*Mohon lengkapi data</p>}
-                      </div>
-                      <div className={styles.inputGroup}>
-                        <label className={styles.label}>Harga Beli</label>
-                        <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 600, color: '#94a3b8', fontSize: '0.9rem' }}>Rp</span>
-                          <input
-                            type="text"
-                            name="buyPrice"
-                            className={styles.input}
-                            style={{ paddingLeft: '3rem', background: '#f1f5f9', cursor: 'not-allowed' }}
-                            value={formData.buyPrice}
-                            readOnly
-                            disabled
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.twoColumnRow}>
-                  <div className={styles.leftCol}>Dimensi Produk<span style={{ color: '#ef4444' }}>*</span></div>
-                  <div className={styles.rightCol}>
-                    <div className={styles.grid2}>
-                      <div>
-                        <label className={styles.label} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          Volume (dalam Panjang x Lebar x Tinggi) <FiHelpCircle style={{ color: '#cbd5e1' }} />
-                        </label>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                          <input type="number" name="volumeP" className={`${styles.input} ${errors.includes('volumeP') ? styles.inputError : ''}`} value={formData.volumeP} onChange={handleInputChange} style={{ textAlign: 'center', width: '90px', padding: '0.6rem' }} />
-                          <input type="number" name="volumeL" className={`${styles.input} ${errors.includes('volumeL') ? styles.inputError : ''}`} value={formData.volumeL} onChange={handleInputChange} style={{ textAlign: 'center', width: '90px', padding: '0.6rem' }} />
-                          <input type="number" name="volumeT" className={`${styles.input} ${errors.includes('volumeT') ? styles.inputError : ''}`} value={formData.volumeT} onChange={handleInputChange} style={{ textAlign: 'center', width: '90px', padding: '0.6rem' }} />
-                          <span style={{ fontWeight: 600, color: '#94a3b8', fontSize: '0.9rem' }}>cm</span>
-                        </div>
-                        {(errors.includes('volumeP') || errors.includes('volumeL') || errors.includes('volumeT')) && <p className={styles.errorText}>*Mohon lengkapi data</p>}
-                      </div>
-                      <div>
-                        <label className={styles.label} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          Berat <FiHelpCircle style={{ color: '#cbd5e1' }} />
-                        </label>
-                        <div style={{ position: 'relative' }}>
-                          <input type="number" name="weight" className={styles.input} value={formData.weight} onChange={handleInputChange} />
-                          <span style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 600, color: '#94a3b8', fontSize: '0.9rem' }}>gram</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.twoColumnRow}>
-                  <div className={styles.leftCol}>Ubah Harga Jual</div>
-                  <div className={styles.rightCol}>
-                    <div className={styles.toggleSection} style={{ marginBottom: '1rem' }}>
-                      <div 
-                        className={`${styles.toggle} ${canChangePrice ? styles.toggleActive : ''}`}
-                        onClick={() => setCanChangePrice(!canChangePrice)}
-                      >
-                        <div className={styles.toggleCircle}></div>
-                        <span className={styles.toggleOnText}>ON</span>
-                        <span className={styles.toggleOffText}>OFF</span>
-                      </div>
-                      <span style={{ fontWeight: 500, color: '#475569', fontSize: '0.9rem' }}>Izinkan kasir untuk mengubah harga jual</span>
-                    </div>
-                    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}>
-                      <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#475569' }}>Maks.</span>
-                      <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#94a3b8' }}>0%</span>
-                    </div>
-                    <p style={{ margin: '8px 0 0 0', fontSize: '0.8rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <FiHelpCircle /> Pastikan harga jual lebih tinggi dari harga beli
-                    </p>
                   </div>
                 </div>
               </section>
