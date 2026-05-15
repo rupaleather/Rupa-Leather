@@ -37,8 +37,9 @@ const TOUR_STEPS = [
   },
   {
     title: 'Nama Produk',
-    content: 'Masukkan nama produk yang unik dan menarik',
-    target: 'name'
+    content: 'Tips: Gunakan nama produk yang berbeda untuk setiap produk',
+    target: 'name',
+    image: '/product_card_tour_illustration_1778811787479.png'
   },
   {
     title: 'Deskripsi Produk',
@@ -2417,6 +2418,11 @@ export default function AddProductPage() {
               <h3 className={styles.tourTitle}>{TOUR_STEPS[tourStep - 1].title}</h3>
             </div>
             <div className={styles.tourContent}>
+              {TOUR_STEPS[tourStep - 1].image && (
+                <div className={styles.tourImageContainer}>
+                  <img src={TOUR_STEPS[tourStep - 1].image} alt="Illustration" className={styles.tourImage} />
+                </div>
+              )}
               {TOUR_STEPS[tourStep - 1].content}
             </div>
             <div className={styles.tourFooter}>

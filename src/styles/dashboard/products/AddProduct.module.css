@@ -882,6 +882,23 @@
   margin: 0;
 }
 
+.tourImageContainer {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+}
+
+.tourImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
 .tourContent {
   font-size: 0.9rem;
   color: #475569;
